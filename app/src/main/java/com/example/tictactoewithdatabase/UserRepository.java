@@ -4,12 +4,15 @@ import android.app.Application;
 import android.os.AsyncTask;
 import android.provider.Settings.Secure;
 
+import com.google.firebase.database.DatabaseReference;
+
 import java.util.List;
 
 public class UserRepository  {
     private UserDao userDao;
     private List<User> users;
     private String ID;
+    DatabaseReference databaseReference;
 
     public UserRepository(Application application){
 
@@ -20,7 +23,9 @@ public class UserRepository  {
     }
 
     public void pushToDb(User user){
-
+        /*databaseReference = FirebaseDatabase.getInstance().getReference("users");
+        user.setId();
+        databaseReference.setValue(id: ID, )*/
     }
 
     public void insert(User user){

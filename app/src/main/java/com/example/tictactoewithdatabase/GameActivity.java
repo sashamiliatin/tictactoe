@@ -11,7 +11,7 @@ import java.util.List;
 public class GameActivity extends AppCompatActivity {
      UserRepository userRepository;
      List<User> users;
-     private List<BoardItem.Marker> boardItems;
+     private List<Marker> boardItems;
      GameService gameService;
 
     @Override
@@ -31,8 +31,8 @@ public class GameActivity extends AppCompatActivity {
         boardGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (gameService.boardItems.get(position).equals(BoardItem.Marker.BLANK)){
-                    gameService.markAtBoard(position, BoardItem.Marker.X);
+                if (gameService.boardItems.get(position).equals(Marker.BLANK)){
+                    gameService.markAtBoard(position, Marker.X);
                     gameService.bestMoveDetect();
                     gameService.isWinner();
                     gameService.isDraw();

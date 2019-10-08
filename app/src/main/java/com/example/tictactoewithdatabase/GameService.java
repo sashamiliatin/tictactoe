@@ -1,9 +1,7 @@
 package com.example.tictactoewithdatabase;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.widget.GridView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -15,24 +13,21 @@ public class GameService {
     Application application ;
      private Context context;
      List<User> users;
-     GridView pointsGridview , boardGridView;
      UserRepository userRepository ;
-     private User user;
-     private BoardItem.Marker turn;
-     public List<BoardItem.Marker> boardItems ;
+     public List<Marker> boardItems ;
 
 
      public GameService(Context context , Application application){
          boardItems = new ArrayList();
-         boardItems.add(BoardItem.Marker.BLANK);
-         boardItems.add(BoardItem.Marker.BLANK);
-         boardItems.add(BoardItem.Marker.BLANK);
-         boardItems.add(BoardItem.Marker.BLANK);
-         boardItems.add(BoardItem.Marker.BLANK);
-         boardItems.add(BoardItem.Marker.BLANK);
-         boardItems.add(BoardItem.Marker.BLANK);
-         boardItems.add(BoardItem.Marker.BLANK);
-         boardItems.add(BoardItem.Marker.BLANK);
+         boardItems.add(Marker.BLANK);
+         boardItems.add(Marker.BLANK);
+         boardItems.add(Marker.BLANK);
+         boardItems.add(Marker.BLANK);
+         boardItems.add(Marker.BLANK);
+         boardItems.add(Marker.BLANK);
+         boardItems.add(Marker.BLANK);
+         boardItems.add(Marker.BLANK);
+         boardItems.add(Marker.BLANK);
          //boardItems = resetBoard();
          application.getApplicationContext();
          this.context = context;
@@ -42,34 +37,27 @@ public class GameService {
 
      }
 
-     public List<BoardItem.Marker> resetBoard(){
+     public List<Marker> resetBoard(){
          for (int i = 0;i <9;i++){
-             boardItems.set(i,BoardItem.Marker.BLANK);
+             boardItems.set(i,Marker.BLANK);
          }
          return boardItems;
      }
 
-     public BoardItem.Marker getTurn(){
-         return turn;
-     }
-
-     public void markAtBoard(int position , BoardItem.Marker marker){
-     	if (boardItems.get(position).equals(BoardItem.Marker.BLANK)){
+     public void markAtBoard(int position , Marker marker){
+     	if (boardItems.get(position).equals(Marker.BLANK)){
          boardItems.set(position, marker);}
      	else Toast.makeText(context, "Is not Empty", Toast.LENGTH_SHORT).show();
      }
 
-     public void setTurn(BoardItem.Marker turn){
-         this.turn = turn;
-     }
-     public List<BoardItem.Marker> getBoard(){
+     public List<Marker> getBoard(){
          return boardItems;
      }
 
      public Boolean isDraw(){
          boolean draw = true;
          for (int i =0; i<9;i++){
-             if (boardItems.get(i).equals(BoardItem.Marker.BLANK)){
+             if (boardItems.get(i).equals(Marker.BLANK)){
                   return draw = false;
              }
          }
@@ -77,7 +65,7 @@ public class GameService {
      }
 
      public Boolean isWinner(){
-         if (!boardItems.get(0).equals(BoardItem.Marker.BLANK))
+         if (!boardItems.get(0).equals(Marker.BLANK))
              if (boardItems.get(0).equals(boardItems.get(1))&&boardItems.get(0).equals(boardItems.get(2))||
                      boardItems.get(0).equals(boardItems.get(3))&&boardItems.get(0).equals(boardItems.get(6))||
                              boardItems.get(0).equals(boardItems.get(4))&&boardItems.get(0).equals(boardItems.get(8))){
@@ -85,13 +73,13 @@ public class GameService {
                  Toast.makeText(context,""+boardItems.get(0).toString()+ " Wins!!!",Toast.LENGTH_LONG).show();
                 return true;
          }
-         if (!boardItems.get(1).equals(BoardItem.Marker.BLANK))
+         if (!boardItems.get(1).equals(Marker.BLANK))
              if (boardItems.get(1).equals(boardItems.get(4))&&boardItems.get(1).equals(boardItems.get(7))){
                  updatePointsAdnGames(boardItems.get(1).toString());
                  Toast.makeText(context,""+boardItems.get(1).toString()+ " Wins!!!",Toast.LENGTH_LONG).show();
                 return true;
              }
-         if (!boardItems.get(2).equals(BoardItem.Marker.BLANK))
+         if (!boardItems.get(2).equals(Marker.BLANK))
              if (boardItems.get(2).equals(boardItems.get(5))&&boardItems.get(2).equals(boardItems.get(8))){
                  updatePointsAdnGames(boardItems.get(2).toString());
                  Toast.makeText(context,""+boardItems.get(2).toString()+ " Wins!!!",Toast.LENGTH_LONG).show();
@@ -99,14 +87,14 @@ public class GameService {
              }
 
 
-         if (!boardItems.get(3).equals(BoardItem.Marker.BLANK)){
+         if (!boardItems.get(3).equals(Marker.BLANK)){
              if (boardItems.get(3).equals(boardItems.get(4))&&boardItems.get(3).equals(boardItems.get(5))){
                  updatePointsAdnGames(boardItems.get(3).toString());
                  Toast.makeText(context,""+boardItems.get(3).toString()+ " Wins!!!",Toast.LENGTH_LONG).show();
                  return true;
              }
          }
-         if (!boardItems.get(6).equals(BoardItem.Marker.BLANK)){
+         if (!boardItems.get(6).equals(Marker.BLANK)){
              if (boardItems.get(6).equals(boardItems.get(4))&&boardItems.get(6).equals(boardItems.get(2))||
              boardItems.get(6).equals(boardItems.get(7))&&boardItems.get(6).equals(boardItems.get(8))){
                  updatePointsAdnGames(boardItems.get(6).toString());
@@ -151,7 +139,7 @@ public class GameService {
 		}
 
      	
-           if (boardItems.get(4).equals(BoardItem.Marker.BLANK)){
+           if (boardItems.get(4).equals(Marker.BLANK)){
            /*if((!(board.get(1).equals(BoardItem.Marker.BLANK)) &&
 				!(board.get(7).equals(BoardItem.Marker.BLANK))) ||
 			   !((board.get(3).equals(BoardItem.Marker.BLANK)) &&
@@ -163,7 +151,7 @@ public class GameService {
            		gameService.markAtBoard(4, BoardItem.Marker.O);
            		return;
 			}*/
-           markAtBoard(4, BoardItem.Marker.O);
+           markAtBoard(4, Marker.O);
            		return;
 		}
 
@@ -173,13 +161,13 @@ public class GameService {
 			int oCount = 0;
 			int xCount = 0;
 			for(int c = 0; c < 3; c++) {
-				if(boardItems.get(r+c).equals(BoardItem.Marker.BLANK)) {
+				if(boardItems.get(r+c).equals(Marker.BLANK)) {
 					bCount++;
 				}
-				 if (boardItems.get(r+c).equals(BoardItem.Marker.O)){
+				 if (boardItems.get(r+c).equals(Marker.O)){
 					oCount++;
 				}
-				 if (boardItems.get(r+c).equals(BoardItem.Marker.X)){
+				 if (boardItems.get(r+c).equals(Marker.X)){
 				 	xCount++;
 				 }
 			}
@@ -188,8 +176,8 @@ public class GameService {
 			// move to the blank spot.
 			if(((oCount == 2) && (bCount == 1))||((xCount==2)&&(bCount==1))) {
 				for(int c = 0; c < 3; c++) {
-					if(boardItems.get(r+c).equals(BoardItem.Marker.BLANK)) {
-							markAtBoard(r+c , BoardItem.Marker.O);
+					if(boardItems.get(r+c).equals(Marker.BLANK)) {
+							markAtBoard(r+c , Marker.O);
 							return;
 					}
 				}
@@ -202,13 +190,13 @@ public class GameService {
 			int oCount = 0;
 			int xCount = 0;
 			for(int r = 0; r < 7; r+=3) {
-				if(boardItems.get(r+c).equals(BoardItem.Marker.O)) {
+				if(boardItems.get(r+c).equals(Marker.O)) {
 					oCount++;
 				}
-				if(boardItems.get(r+c).equals(BoardItem.Marker.BLANK)) {
+				if(boardItems.get(r+c).equals(Marker.BLANK)) {
 					bCount++;
 				}
-				if(boardItems.get(r+c).equals(BoardItem.Marker.X)) {
+				if(boardItems.get(r+c).equals(Marker.X)) {
 					xCount++;
 				}
 			}
@@ -217,8 +205,8 @@ public class GameService {
 			// move to the blank spot.
 			if(((oCount == 2) && (bCount == 1))||((xCount==2)&&(bCount==1))) {
 				for(int r = 0; r < 7; r+=3) {
-					if(boardItems.get(r+c).equals(BoardItem.Marker.BLANK)) {
-							markAtBoard(r+c, BoardItem.Marker.O);
+					if(boardItems.get(r+c).equals(Marker.BLANK)) {
+							markAtBoard(r+c, Marker.O);
 							return;
 					}
 				}
@@ -231,21 +219,21 @@ public class GameService {
 			int oCount = 0;
 			int xCount = 0;
 			for (int i = 0; i < 9; i += 4) {
-				if (boardItems.get(i).equals(BoardItem.Marker.O)) {
+				if (boardItems.get(i).equals(Marker.O)) {
 					oCount++;
 				}
-				if (boardItems.get(i).equals(BoardItem.Marker.BLANK)) {
+				if (boardItems.get(i).equals(Marker.BLANK)) {
 					bCount++;
 				}
-				if (boardItems.get(i).equals(BoardItem.Marker.X)) {
+				if (boardItems.get(i).equals(Marker.X)) {
 					xCount++;
 				}
 
 			}
 			if (((oCount == 2) && (bCount == 1)) || ((xCount == 2) && (bCount == 1))) {
 				for (int i = 0; i < 9; i += 4) {
-					if (boardItems.get(i).equals(BoardItem.Marker.BLANK)) {
-						markAtBoard(i, BoardItem.Marker.O);
+					if (boardItems.get(i).equals(Marker.BLANK)) {
+						markAtBoard(i, Marker.O);
 						return;
 					}
 				}
@@ -255,20 +243,20 @@ public class GameService {
 			oCount = 0;
 			xCount = 0;
 			for (int i = 2; i < 7;i+=2) {
-				if (boardItems.get(i).equals(BoardItem.Marker.O)) {
+				if (boardItems.get(i).equals(Marker.O)) {
 					oCount++;
 				}
-				if (boardItems.get(i).equals(BoardItem.Marker.BLANK)) {
+				if (boardItems.get(i).equals(Marker.BLANK)) {
 					bCount++;
 				}
-				if (boardItems.get(i).equals(BoardItem.Marker.X)) {
+				if (boardItems.get(i).equals(Marker.X)) {
 					xCount++;
 				}
 			}
 			if (((oCount == 2) && (bCount == 1))||((xCount==2)&&(bCount==1))) {
 				for (int i = 2; i < 7;i+=2) {
-					if (boardItems.get(i).equals(BoardItem.Marker.BLANK)) {
-						markAtBoard(i, BoardItem.Marker.O);
+					if (boardItems.get(i).equals(Marker.BLANK)) {
+						markAtBoard(i, Marker.O);
 						return;
 					}
 				}
@@ -276,8 +264,8 @@ public class GameService {
 		}
 
 		// If still available, take the center; always a good move.
-		if(boardItems.get(4).equals(BoardItem.Marker.BLANK)) {
-				markAtBoard(4, BoardItem.Marker.O);
+		if(boardItems.get(4).equals(Marker.BLANK)) {
+				markAtBoard(4, Marker.O);
 				return;
 		}
 
@@ -289,8 +277,8 @@ public class GameService {
 		Random random = new Random();
 		while(!found) {
 			int r = random.nextInt(8);
-			if(boardItems.get(r).equals(BoardItem.Marker.BLANK)) {
-					markAtBoard(r, BoardItem.Marker.O);
+			if(boardItems.get(r).equals(Marker.BLANK)) {
+					markAtBoard(r, Marker.O);
 					found = true;
 
 			}
