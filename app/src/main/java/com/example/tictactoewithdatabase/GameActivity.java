@@ -21,13 +21,15 @@ public class GameActivity extends AppCompatActivity {
         userRepository = new UserRepository(getApplication());
         gameService = new GameService(getApplicationContext(),getApplication());
         users = userRepository.getAllUsers();
-        GridView playerGridView = findViewById(R.id.PlayersGridView);
-        final GridView boardGridView = findViewById(R.id.BoardGridView);
         boardItems = gameService.getBoard();
+        //set board and player adapters
+        final GridView playerGridView = findViewById(R.id.PlayersGridView);
+        final GridView boardGridView = findViewById(R.id.BoardGridView);
         final BoardViewAdapter boardViewAdapter = new BoardViewAdapter(this,boardItems);
         boardGridView.setAdapter(boardViewAdapter);
         final PlayerViewAdapter playerViewAdapter = new PlayerViewAdapter(this,users);
         playerGridView.setAdapter(playerViewAdapter);
+        //set listener on board items
         boardGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

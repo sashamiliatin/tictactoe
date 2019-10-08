@@ -4,44 +4,33 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
 import java.util.List;
 
-public class BoardViewAdapter extends BaseAdapter implements View.OnClickListener {
-    Context context;
-    private static LayoutInflater inflater;
+public class BoardViewAdapter extends ArrayAdapter<Marker> {
+     private Context context;
+     private static LayoutInflater inflater;
+     private List<Marker> markers;
 
-    @Override
-    public void onClick(View v) {
-        int position = (int) v.getTag();
-        Object object =getItem(position);
-        Marker marker = (Marker) object;
+     class VieHolder{
+        public ImageView boardItem;
     }
 
-
-     private List<Marker> markers;
-    public  Integer[] boardPosition = {0,1,2,10,11,12,20,21,22};
-
     public BoardViewAdapter(Context context, List<Marker> markers ){
+        super(context,0,markers);
         this.context = context;
         this.markers = markers;
     }
 
-    class VieHolder{
-        public ImageView boardItem;
-/*        public VieHolder(View view){
-            boardItem = view.findViewById(R.id.BoardGridView);
-        }*/
-    }
     @Override
     public int getCount() {
-        return 9;
+        return markers.size();
     }
 
     @Override
-    public Object getItem(int position) {
+    public Marker getItem(int position) {
         return null;
     }
 
@@ -57,20 +46,21 @@ public class BoardViewAdapter extends BaseAdapter implements View.OnClickListene
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View boardView =inflater.inflate(R.layout.board_view,null);
         ImageView imageView =boardView.findViewById(R.id.board);
-        if (markers.get(position).equals(Marker.BLANK)){
-           //imageView.setBackgroundColor(Color.TRANSPARENT);
-           imageView.setImageResource(R.drawable.blank);
+
+        switch (markers.get(position)) {
+            case BLANK:
+                imageView.setImageResource(R.drawable.blank);
+                break;
+            case X:
+                imageView.setImageResource(R.drawable.cross);
+                break;
+            case O:
+                imageView.setImageResource(R.drawable.circle);
+                break;
         }
-        if (markers.get(position).equals(Marker.X)){
-            imageView.setImageResource(R.drawable.cross);
-        }
-        if (markers.get(position).equals(Marker.O)){
-           imageView.setImageResource(R.drawable.circle);
-        }
+
         vieHolder.boardItem = imageView;
-        imageView.setId(boardPosition[position]);
         boardView.setTag(vieHolder);
-        //imageView.setBackgroundColor(Color.TRANSPARENT);
         return boardView;
     }
 }

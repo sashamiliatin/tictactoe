@@ -10,11 +10,14 @@ import java.util.Random;
 
 public class GameService {
 
-    Application application ;
+     Application application ;
      private Context context;
      List<User> users;
      UserRepository userRepository ;
-     public List<Marker> boardItems ;
+
+
+
+	public List<Marker> boardItems ;
 
 
      public GameService(Context context , Application application){
@@ -105,7 +108,7 @@ public class GameService {
          return false;
      }
 
-    private void updatePointsAdnGames(String boardMarker){
+     private void updatePointsAdnGames(String boardMarker){
         int wins = userRepository.getAllUsers().get(0).getWins();
         int games = userRepository.getAllUsers().get(0).getGames();
         if (boardMarker.equals("X")){

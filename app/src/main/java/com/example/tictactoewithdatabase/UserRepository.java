@@ -2,31 +2,21 @@ package com.example.tictactoewithdatabase;
 
 import android.app.Application;
 import android.os.AsyncTask;
-import android.provider.Settings.Secure;
-
-import com.google.firebase.database.DatabaseReference;
 
 import java.util.List;
 
 public class UserRepository  {
     private UserDao userDao;
     private List<User> users;
-    private String ID;
-    DatabaseReference databaseReference;
+
 
     public UserRepository(Application application){
 
         UserDatabase db = UserDatabase.getInstance(application);
-        ID = Secure.ANDROID_ID;
         userDao = db.UserDao();
         users = userDao.getAll();
     }
 
-    public void pushToDb(User user){
-        /*databaseReference = FirebaseDatabase.getInstance().getReference("users");
-        user.setId();
-        databaseReference.setValue(id: ID, )*/
-    }
 
     public void insert(User user){
         new InsertUserAsyncTask(userDao).execute(user);
@@ -37,6 +27,7 @@ public class UserRepository  {
         new UpdateUserAsyncTask(userDao).execute(user);
 
     }
+
     public void delete(User user){
         new DeleteUserAsyncTask(userDao).equals(user);
     }
