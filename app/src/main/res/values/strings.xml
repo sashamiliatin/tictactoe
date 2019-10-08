@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TicTacToeWithDatabase</string>
+    <string name="player_name">Enter Your Name</string>
+    <string name="button_register">OK</string>
+</resources>
