@@ -6,6 +6,9 @@ import android.widget.GridView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.tictactoewithdatabase.Repository.UserRepository;
+import com.example.tictactoewithdatabase.Service.GameService;
+
 import java.util.List;
 
 public class GameActivity extends AppCompatActivity {

@@ -1,7 +1,10 @@
 package com.example.tictactoewithdatabase;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -9,11 +12,19 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.tictactoewithdatabase.Controller.UserDatabase;
+import com.example.tictactoewithdatabase.Repository.UserRepository;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class MainActivity extends AppCompatActivity  {
 
+    TelephonyManager telephonyManager;
     TextView userTextView;
     public static UserDatabase userDatabase;
     public static UserRepository userRepository;
+    public DatabaseReference userDatabaseFirebase;
+    public String ID;
 
 
 
@@ -25,6 +36,17 @@ public class MainActivity extends AppCompatActivity  {
         userRepository = new UserRepository(getApplication());
         userTextView = findViewById(R.id.userNameText);
         final Button btn = findViewById(R.id.okButton);
+        telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        //get unique Android ID for create/find user in firebase database
+        ID = Settings.Secure.getString(getContentResolver(),
+                     Settings.Secure.ANDROID_ID);
+        userDatabaseFirebase = FirebaseDatabase.getInstance().getReference("users");
+        System.out.println(userDatabaseFirebase.child("id").orderByKey());
+        Toast.makeText(this, "aaa"+""+ userDatabaseFirebase.child(ID).getDatabase(), Toast.LENGTH_SHORT).show();
+        //User user = new User("sasha",0,0);
+
+        //user.setId(ID);
+        //userDatabaseFirebase.setValue(user);
 
 
         btn.setOnClickListener(new View.OnClickListener() {

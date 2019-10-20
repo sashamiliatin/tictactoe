@@ -1,7 +1,11 @@
-package com.example.tictactoewithdatabase;
+package com.example.tictactoewithdatabase.Repository;
 
 import android.app.Application;
 import android.os.AsyncTask;
+
+import com.example.tictactoewithdatabase.Controller.UserDatabase;
+import com.example.tictactoewithdatabase.User;
+import com.example.tictactoewithdatabase.UserDao;
 
 import java.util.List;
 
@@ -39,6 +43,7 @@ public class UserRepository  {
     public List<User> getAllUsers(){
         return users;
     }
+
 
 
     private static class InsertUserAsyncTask extends AsyncTask<User,Void,Void>{
