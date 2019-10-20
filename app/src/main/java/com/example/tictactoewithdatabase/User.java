@@ -8,9 +8,11 @@ import androidx.room.PrimaryKey;
 
 public class User {
     @PrimaryKey(autoGenerate = true)
-    int id;
+    int userId;
+    @ColumnInfo(name = "user_id")
+    String id ;
     @ColumnInfo(name = "user_name")
-    String name;
+    String name ;
     @ColumnInfo(name = "user_wins")
     int wins;
     @ColumnInfo(name = "user_games")
@@ -22,11 +24,11 @@ public class User {
         this.games = games;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

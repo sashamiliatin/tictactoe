@@ -1,8 +1,12 @@
-package com.example.tictactoewithdatabase;
+package com.example.tictactoewithdatabase.Service;
 
 import android.app.Application;
 import android.content.Context;
 import android.widget.Toast;
+
+import com.example.tictactoewithdatabase.Marker;
+import com.example.tictactoewithdatabase.User;
+import com.example.tictactoewithdatabase.Repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
