@@ -1,31 +1,32 @@
-package com.example.tictactoewithdatabase;
+package com.example.tictactoewithdatabase.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.tictactoewithdatabase.R;
+import com.example.tictactoewithdatabase.model.User;
+
 import java.util.List;
-import java.util.zip.Inflater;
 
 public class PlayerViewAdapter extends BaseAdapter  {
-    Context context;
-    List<User> users;
-    private static LayoutInflater inflater;
+    private Context context;
+    private List<User> users;
 
-
-    public PlayerViewAdapter(Context context, List<User> users){
+    public PlayerViewAdapter(Context context){
         this.context = context;
+    }
+
+    public void setUsers(List<User> users) {
         this.users = users;
     }
+
     class VieHolder {
         public TextView userNameText;
         public TextView userPointsText;
-
     }
 
     @Override
@@ -45,19 +46,25 @@ public class PlayerViewAdapter extends BaseAdapter  {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        VieHolder vieHolder = new VieHolder();
-        inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View playerView =inflater.inflate(R.layout.players_view,null);
-        ImageView imageView =playerView.findViewById(R.id.PlayersGridView);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        View playerView = inflater.inflate(R.layout.players_view,null);
+
         TextView playerName = playerView.findViewById(R.id.UserTextView);
-        playerName.setText(users.get(position).name);
+        playerName.setText(users.get(position).getName());
+
         TextView playerPoints = playerView.findViewById(R.id.PointsTextView);
         playerPoints.setText(String.valueOf(users.get(position).getWins()));
-        vieHolder.userNameText =playerName;
+
+        setViewHolder(playerView, playerName, playerPoints);
+
+        return playerView;
+    }
+
+    private void setViewHolder(View playerView, TextView playerName, TextView playerPoints) {
+        VieHolder vieHolder = new VieHolder();
+        vieHolder.userNameText = playerName;
         vieHolder.userPointsText = playerPoints;
         playerView.setTag(vieHolder);
-        //playerPoints.setText(users.get(position).getWins());
-        return playerView;
     }
 }

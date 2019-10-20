@@ -1,23 +1,25 @@
-package com.example.tictactoewithdatabase;
+package com.example.tictactoewithdatabase.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.tictactoewithdatabase.model.User;
+
 import java.util.List;
+
 @Dao
 public interface UserDao {
 
     @Query("SELECT * FROM user")
-    List<User> getAll();
+    LiveData<List<User>> getAll();
 
-    @Query("SELECT * FROM user WHERE user_name LIKE :name  LIMIT 1")
-    User findByName(String name);
+    @Query("SELECT * FROM user")
+    List<User> getAllUsers();
 
-    @Insert
-    void insertAll(User... users);
     @Insert
     void insert(User user);
 
@@ -29,4 +31,7 @@ public interface UserDao {
 
     @Update
     void  update(User user);
+
+    @Query("SELECT * FROM user WHERE id = :id")
+    User getById(int id);
 }

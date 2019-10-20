@@ -1,22 +1,16 @@
-package com.example.tictactoewithdatabase;
+package com.example.tictactoewithdatabase.model;
 
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "user")
-
 public class User {
+
     @PrimaryKey(autoGenerate = true)
-    int userId;
-    @ColumnInfo(name = "user_id")
-    String id ;
-    @ColumnInfo(name = "user_name")
-    String name ;
-    @ColumnInfo(name = "user_wins")
-    int wins;
-    @ColumnInfo(name = "user_games")
-    int games;
+    private int id;
+    private String name;
+    private int wins;
+    private int games;
 
     public User(String name, int wins, int games) {
         this.name = name;
@@ -24,11 +18,11 @@ public class User {
         this.games = games;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

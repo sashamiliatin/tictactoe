@@ -1,5 +1,5 @@
-package com.example.tictactoewithdatabase.Service;
-import com.example.tictactoewithdatabase.User;
+package com.example.tictactoewithdatabase.service;
+import com.example.tictactoewithdatabase.model.User;
 
 import java.util.List;
 
