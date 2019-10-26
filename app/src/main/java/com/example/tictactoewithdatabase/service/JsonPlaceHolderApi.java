@@ -11,14 +11,14 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface JsonPlaceHolderApi {
-     @GET("/user/{id}")
+     @GET("/{id}")
     Call<List<User>> getUser(@Query("id") String id);
 
     @POST("/adduser")
-    Call<User> postUser(@Body User user,@Query("di") String id);
+    Call<List<User>> postUser(@Body User user,@Query("di") String id);
 
-    @POST("/update")
-    Call<User> udateUser(@Body User user,@Query("di") String id);
+    @POST("/{id}")
+    Call<List<User>> updateUser(@Body List<User> user, @Query("id") String id);
 
     @DELETE("/delete")
     Call<User> deleteUser(@Query("id") String id);

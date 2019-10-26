@@ -24,11 +24,13 @@ public class GameActivity extends AppCompatActivity {
 
     private UserViewModel userViewModel;
     private UserRepository userRepository;
+    private String androidId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        androidId = getIntent().getStringExtra("id");
         init();
     }
 
@@ -63,6 +65,6 @@ public class GameActivity extends AppCompatActivity {
 
         GridView boardGridView = findViewById(R.id.BoardGridView);
         boardGridView.setAdapter(boardViewAdapter);
-        boardGridView.setOnItemClickListener(new OnBoardItemClickListener(gameService, boardViewAdapter, userRepository));
+        boardGridView.setOnItemClickListener(new OnBoardItemClickListener(gameService, boardViewAdapter, userRepository, androidId, this));
     }
 }
