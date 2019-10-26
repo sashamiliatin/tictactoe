@@ -1,52 +1,50 @@
-package com.example.tictactoewithdatabase.Repository;
+package com.example.tictactoewithdatabase.repository;
 
-import android.app.Application;
+import android.content.Context;
 import android.os.AsyncTask;
 
-import com.example.tictactoewithdatabase.Controller.UserDatabase;
-import com.example.tictactoewithdatabase.User;
-import com.example.tictactoewithdatabase.UserDao;
+import androidx.lifecycle.LiveData;
+
+import com.example.tictactoewithdatabase.dao.UserDao;
+import com.example.tictactoewithdatabase.model.User;
 
 import java.util.List;
 
 public class UserRepository  {
     private UserDao userDao;
-    private List<User> users;
+    private LiveData<List<User>> users;
 
-
-    public UserRepository(Application application){
-
-        UserDatabase db = UserDatabase.getInstance(application);
-        userDao = db.UserDao();
-        users = userDao.getAll();
+    public UserRepository(Context context){
+        UserDatabase db = UserDatabase.getInstance(context);
+        this.userDao = db.getUserDao();
+        this.users = userDao.getAll();
     }
-
 
     public void insert(User user){
         new InsertUserAsyncTask(userDao).execute(user);
-
     }
 
-    public void update(User user){
-        new UpdateUserAsyncTask(userDao).execute(user);
-
+    public void update(User user) {
+        userDao.update(user);
     }
 
     public void delete(User user){
-        new DeleteUserAsyncTask(userDao).equals(user);
+        new DeleteUserAsyncTask(userDao).execute(user);
     }
 
     public void deleteAll(){
-        new DeleteAllUsersAsyncTask(userDao);
+        new DeleteAllUsersAsyncTask(userDao).execute();
     }
 
-    public List<User> getAllUsers(){
+    public LiveData<List<User>> getLiveDataUsers(){
         return users;
     }
 
+    public List<User> getUsers(){
+        return userDao.getAllUsers();
+    }
 
-
-    private static class InsertUserAsyncTask extends AsyncTask<User,Void,Void>{
+    private static class InsertUserAsyncTask extends AsyncTask<User,Void,Void> {
         private UserDao userDao;
         private InsertUserAsyncTask(UserDao userDao){
             this.userDao = userDao;
@@ -59,7 +57,7 @@ public class UserRepository  {
         }
     }
 
-    private static class UpdateUserAsyncTask extends AsyncTask<User,Void,Void>{
+    private static class UpdateUserAsyncTask extends AsyncTask<User,Void,Void> {
         private UserDao userDao;
         private UpdateUserAsyncTask(UserDao userDao){
             this.userDao = userDao;
@@ -72,7 +70,7 @@ public class UserRepository  {
         }
     }
 
-    private static class DeleteUserAsyncTask extends AsyncTask<User,Void,Void>{
+    private static class DeleteUserAsyncTask extends AsyncTask<User,Void,Void> {
         private UserDao userDao;
         private DeleteUserAsyncTask(UserDao userDao){
             this.userDao = userDao;
@@ -85,18 +83,16 @@ public class UserRepository  {
         }
     }
 
-    private static class DeleteAllUsersAsyncTask extends AsyncTask<User,Void,Void>{
+    private static class DeleteAllUsersAsyncTask extends AsyncTask<User,Void,Void> {
         private UserDao userDao;
-        private DeleteAllUsersAsyncTask(UserDao userDao){
+        private DeleteAllUsersAsyncTask(UserDao userDao) {
             this.userDao = userDao;
         }
 
         @Override
-        protected Void doInBackground(User ... users) {
+        protected Void doInBackground(User... users) {
             userDao.deleteAll();
             return null;
         }
     }
-
-
 }
